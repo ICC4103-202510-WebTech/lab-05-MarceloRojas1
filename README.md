@@ -44,4 +44,4 @@ All attributes must be `NOT NULL` at the database level.
 ### 2. Create dummy data
 
 Populate the `db/seeds.rb` file with at least 10 instances of each model. This file is used to populate the database with data using `create` statements and is executed by running `bin/rails db:seed`.
->>>>>>> 9228be619bc1eced403a1d7f1da1ea1ed829465e
+
