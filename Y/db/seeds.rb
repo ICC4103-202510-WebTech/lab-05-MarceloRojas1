@@ -7,3 +7,27 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+User.create(name: "Kaori", email: "kaori@example.com")
+
+10.times do |i|
+    User.create(
+      name:  "Usuario #{i}",
+      email: "usuario#{i}@example.com"
+    )
+  end
+  
+
+10.times do |i|
+    Message.create(
+      sender_id:   rand(1..10),
+      receiver_id: rand(1..10),
+      content:     "prueba #{i}"
+    )
+  end
+  
+
+10.times do |i|
+    Tweet.create(
+      content: "tweet n #{i}"
+    )
+  end
