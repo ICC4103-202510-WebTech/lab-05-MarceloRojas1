@@ -1,0 +1,19 @@
+<h1>Listado de Chats</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th><th>Emisor</th><th>Receptor</th><th>Ver</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @chats.each do |c| %>
+      <tr>
+        <td><%= c.id %></td>
+        <td><%= c.sender.first_name %></td>
+        <td><%= c.receiver.first_name %></td>
+        <td><%= link_to "Mostrar", chat_path(c), class: "btn btn-sm btn-primary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

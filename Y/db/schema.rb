@@ -10,23 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_11_230734) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_11_212013) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
-  create_table "chats", force: :cascade do |t|
-    t.integer "sender_id", null: false
-    t.integer "receiver_id", null: false
+  create_table "message_1s", force: :cascade do |t|
+    t.integer "sender_id"
+    t.integer "receiver_id"
+    t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "messages", force: :cascade do |t|
-    t.integer "chat_id", null: false
-    t.integer "user_id", null: false
-    t.text "body", null: false
+    t.text "content"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "tweets", force: :cascade do |t|
@@ -42,9 +43,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_11_230734) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "first_name"
-    t.string "last_name"
   end
 
+  add_foreign_key "messages", "users"
   add_foreign_key "tweets", "users"
 end

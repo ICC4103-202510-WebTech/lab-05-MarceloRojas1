@@ -1,0 +1,19 @@
+<h1>Listado de Usuarios</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th><th>Nombre</th><th>Email</th><th>Ver</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |u| %>
+      <tr>
+        <td><%= u.id %></td>
+        <td><%= "#{u.first_name} #{u.last_name}" %></td>
+        <td><%= u.email %></td>
+        <td><%= link_to "Mostrar", user_path(u), class: "btn btn-sm btn-primary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -32,4 +32,3 @@ users = 10.times.map do |i|
       body: "mensaje n #{i}"
     )
   end
-  
