@@ -1,0 +1,16 @@
+<%= form_with model: @chat do |f| %>
+    <% if @chat.errors.any? %>
+      <ul>
+        <% @chat.errors.full_messages.each { |m| %><li><%= m %></li><% } %>
+      </ul>
+    <% end %>
+  
+    <%= f.label :sender_id, "Emisor" %><br>
+    <%= f.select :sender_id, @users.pluck(:email, :id), prompt: "Selecciona un emisor" %><br><br>
+  
+    <%= f.label :receiver_id, "Receptor" %><br>
+    <%= f.select :receiver_id, @users.pluck(:email, :id), prompt: "Selecciona un receptor" %><br><br>
+  
+    <%= f.submit %>
+  <% end %>
+  

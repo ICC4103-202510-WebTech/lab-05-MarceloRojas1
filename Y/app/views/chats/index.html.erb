@@ -1,19 +1,12 @@
-<h1>Listado de Chats</h1>
+<h1>Chats</h1>
+<%= link_to "Nuevo chat", new_chat_path %>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>ID</th><th>Emisor</th><th>Receptor</th><th>Ver</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @chats.each do |c| %>
-      <tr>
-        <td><%= c.id %></td>
-        <td><%= c.sender.first_name %></td>
-        <td><%= c.receiver.first_name %></td>
-        <td><%= link_to "Mostrar", chat_path(c), class: "btn btn-sm btn-primary" %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<ul>
+  <% @chats.each do |chat| %>
+    <li>
+      <%= link_to "Chat ##{chat.id}", chat %>
+      (de <%= chat.sender.email %> a <%= chat.receiver.email %>)
+    </li>
+  <% end %>
+</ul>
+

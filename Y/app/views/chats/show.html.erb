@@ -1,4 +1,13 @@
-<h1>Chat #<%= @chat.id %></h1>
-<p><strong>Emisor:</strong> <%= @chat.sender.first_name %></p>
-<p><strong>Receptor:</strong> <%= @chat.receiver.first_name %></p>
-<%= link_to "Volver al listado", chats_path, class: "btn btn-secondary" %>
+<h1>Chat ##<%= @chat.id %></h1>
+<p>De: <%= @chat.sender.email %></p>
+<p>A:  <%= @chat.receiver.email %></p>
+
+<h2>Mensajes</h2>
+<ul>
+  <% @messages.each do |msg| %>
+    <li><strong><%= msg.user.email %>:</strong> <%= msg.body %></li>
+  <% end %>
+</ul>
+
+<%= link_to "Enviar mensaje", new_message_path(chat_id: @chat.id) %><br>
+<%= link_to "← Volver", chats_path %>
