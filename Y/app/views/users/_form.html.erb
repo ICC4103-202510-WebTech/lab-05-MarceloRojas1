@@ -1,13 +1,14 @@
-<!-- app/views/users/_form.html.erb -->
-<%= form_with model: @user do |f| %>
-  <% if @user.errors.any? %>
+<% if @user.errors.any? %>
+  <div class="alert alert-danger">
     <ul>
       <% @user.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
     </ul>
-  <% end %>
+  </div>
+<% end %>
 
+<%= form_with model: @user, local: true do |f| %>
   <p>
     <%= f.label :first_name, "Nombre" %><br>
     <%= f.text_field :first_name %>
