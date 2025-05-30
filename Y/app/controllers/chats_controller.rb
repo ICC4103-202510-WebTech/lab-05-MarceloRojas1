@@ -1,24 +1,21 @@
 class ChatsController < ApplicationController
+  before_action :authenticate_user!                       
+  load_and_authorize_resource                               
   before_action :set_chat, only: :show
 
-  
   def index
     @chats = Chat.all
   end
 
-
   def show
-  
     @messages = @chat.messages.includes(:user)
   end
 
- 
   def new
-    @chat  = Chat.new
+    @chat = Chat.new
     @users = User.all
   end
 
- 
   def create
     @chat = Chat.new(chat_params)
     if @chat.save
@@ -39,3 +36,4 @@ class ChatsController < ApplicationController
     params.require(:chat).permit(:sender_id, :receiver_id)
   end
 end
+

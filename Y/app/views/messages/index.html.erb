@@ -1,28 +1,23 @@
 <h1>Mensajes</h1>
-<%= link_to "Enviar nuevo mensaje", new_message_path, class: "btn btn-primary mb-2" %>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Chat</th>
-      <th>Autor</th>
-      <th>Contenido</th>
-      <th>Acciones</th> <!-- ← encabezado para los links -->
-    </tr>
-  </thead>
-  <tbody>
-    <% @messages.each do |m| %>
-      <tr>
-        <td><%= link_to m.chat_id, chat_path(m.chat) %></td>
-        <td><%= m.user.email %></td>
-        <td><%= m.body.truncate(50) %></td>
-        <td>
-          <%= link_to "Editar",   edit_message_path(m) %> |
-          <%= link_to "Eliminar", message_path(m),
+<% if can? :create, Message %>
+  <%= link_to "Nuevo mensaje", new_message_path %>
+<% end %>
+
+<ul>
+  <% @messages.each do |message| %>
+    <li>
+      <strong><%= message.user.email %>:</strong> <%= message.body %>
+
+      <% if can? :edit, message %>
+        | <%= link_to "Editar", edit_message_path(message) %>
+      <% end %>
+
+      <% if can? :destroy, message %>
+        | <%= link_to "Eliminar", message_path(message),
                       method: :delete,
-                      data: { confirm: "confirm?" } %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+                      data: { confirm: "¿Seguro?" } %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

@@ -1,6 +1,7 @@
 # config/routes.rb
 Rails.application.routes.draw do
-  root "users#index"
+  devise_for :users
+  root "messages#index"
 
   resources :users, only: %i[index show new create edit update]
 
