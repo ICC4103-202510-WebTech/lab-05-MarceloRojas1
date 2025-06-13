@@ -1,20 +1,19 @@
-<h1>Mensajes</h1>
-
 <% if can? :create, Message %>
-  <%= link_to "Nuevo mensaje", new_message_path %>
+  <%= link_to "Nuevo mensaje", new_chat_message_path(@chat), class: "btn btn-primary mb-3" %>
 <% end %>
 
 <ul>
-  <% @messages.each do |message| %>
+  <% @messages.each do |msg| %>
     <li>
-      <strong><%= message.user.email %>:</strong> <%= message.body %>
+      <strong><%= msg.user.email %>:</strong>
+      <%= simple_format msg.body %>
 
-      <% if can? :edit, message %>
-        | <%= link_to "Editar", edit_message_path(message) %>
+      <% if can? :edit, msg %>
+        | <%= link_to "Editar", edit_chat_message_path(@chat, msg) %>
       <% end %>
-
-      <% if can? :destroy, message %>
-        | <%= link_to "Eliminar", message_path(message),
+      <% if can? :destroy, msg %>
+        | <%= link_to "Eliminar",
+                      chat_message_path(@chat, msg),
                       method: :delete,
                       data: { confirm: "¿Seguro?" } %>
       <% end %>

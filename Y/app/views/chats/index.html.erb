@@ -1,23 +1,24 @@
 <h1>Chats</h1>
 
 <% if can? :create, Chat %>
-  <%= link_to "Nuevo chat", new_chat_path %>
+  <%= link_to "Nuevo chat", new_chat_path, class: "btn btn-primary mb-3" %>
 <% end %>
 
-<ul>
+<ul class="list-unstyled">
   <% @chats.each do |chat| %>
-    <li>
-      <%= link_to "Chat ##{chat.id}", chat %>
-      (de <%= chat.sender.email %> a <%= chat.receiver.email %>)
+    <li class="mb-2">
+      <%= link_to "Conversación con #{chat.other_participant(current_user).email}",
+                  chat_messages_path(chat), class: "me-2" %>
 
       <% if can? :edit, chat %>
         | <%= link_to "Editar", edit_chat_path(chat) %>
       <% end %>
 
       <% if can? :destroy, chat %>
-        | <%= link_to "Eliminar", chat_path(chat),
+        | <%= link_to "Eliminar",
+                      chat_path(chat),
                       method: :delete,
-                      data: { confirm: "¿Seguro?" } %>
+                      data: { confirm: '¿Seguro?' } %>
       <% end %>
     </li>
   <% end %>

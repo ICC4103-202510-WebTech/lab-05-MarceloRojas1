@@ -1,39 +1,36 @@
 class ChatsController < ApplicationController
-  before_action :authenticate_user!                       
-  load_and_authorize_resource                               
-  before_action :set_chat, only: :show
+  before_action :authenticate_user!
+  load_and_authorize_resource
+
 
   def index
-    @chats = Chat.all
+    @chats = Chat.inbox(current_user)
   end
 
-  def show
-    @messages = @chat.messages.includes(:user)
-  end
 
   def new
-    @chat = Chat.new
-    @users = User.all
+    @chat  = Chat.new
+    @users = User.where.not(id: current_user.id) 
   end
 
+
   def create
-    @chat = Chat.new(chat_params)
+    @chat = current_user.chats_as_sender.build(chat_params)
+
     if @chat.save
-      redirect_to @chat, notice: 'Chat creado'
+      redirect_to chat_messages_path(@chat), notice: 'Chat creado'
     else
-      @users = User.all
+      @users = User.where.not(id: current_user.id)
       render :new
     end
   end
 
   private
 
-  def set_chat
-    @chat = Chat.find(params[:id])
-  end
 
   def chat_params
-    params.require(:chat).permit(:sender_id, :receiver_id)
+    params.require(:chat).permit(:receiver_id)
   end
 end
+
 

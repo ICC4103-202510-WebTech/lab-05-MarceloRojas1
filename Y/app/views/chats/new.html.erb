@@ -1,3 +1,15 @@
-<h1>Iniciar nuevo chat</h1>
-<%= render 'form' %>
-<%= link_to "← Volver", chats_path %>
+<h1>Nuevo chat</h1>
+
+<%= form_with model: @chat do |f| %>
+  <div class="mb-3">
+    <%= f.label :receiver_id, "Enviar a" %><br>
+    <%= f.collection_select :receiver_id,
+                            @users,
+                            :id,
+                            :email,
+                            prompt: "Selecciona un usuario" %>
+  </div>
+
+  <%= f.submit "Crear chat", class: "btn btn-primary" %>
+<% end %>
+
